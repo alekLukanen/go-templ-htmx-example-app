@@ -1,0 +1,32 @@
+package components
+
+import "time"
+import "fmt"
+
+type AuthRefreshParams struct {
+	JWTExp int64
+}
+
+func (obj *AuthRefreshParams) HXTrigger() string {
+
+	expTime := time.Unix(obj.JWTExp, 0).UTC()
+	currentTime := time.Now().UTC()
+
+	if expTime.Sub(currentTime) < 11*time.Minute {
+		return "load delay:15s"
+	}
+
+	expTimeMinus10Minutes := expTime.Add(-10 * time.Minute)
+	delayMinutes := expTimeMinus10Minutes.Sub(currentTime).Minutes()
+
+	return fmt.Sprintf("load delay:%dm", int(delayMinutes))
+}
+
+templ AuthRefresh(params AuthRefreshParams) {
+	<div
+		hx-get="/r/auth/refresh"
+		hx-target="this"
+		hx-swap="outerHTML"
+		hx-trigger={ params.HXTrigger() }
+	></div>
+}

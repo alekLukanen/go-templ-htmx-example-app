@@ -1,0 +1,10 @@
+package components
+
+templ HomepageTopNav(showHomeItem bool) {
+	<div class="w-screen h-fit px-4 py-4 flex flex-row-reverse gap-4 bg-blue-600">
+		<a class="font-bold text-xl text-stone-100 cursor-pointer" href="/login">Login</a>
+		if (showHomeItem) {
+			<a class="font-bold text-xl text-stone-100 cursor-pointer" href="/">Home</a>
+		}
+	</div>
+}

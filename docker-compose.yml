@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  postgresdb:
+    image: postgres:latest 
+    container_name: postgresdb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - type: volume
+        source: go_templ_htmx_example_project
+        target: /home/postgres/pgdata/data
+
+volumes:
+  go_templ_htmx_example_project:

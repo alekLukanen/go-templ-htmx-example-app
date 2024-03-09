@@ -1,0 +1,162 @@
+package pages
+
+import "github.com/alekLukanen/go-templ-htmx-example-app/core/ui/components"
+
+type SignupInputFormParams struct {
+	Email                       string
+	Password1                   string
+	Password2                   string
+	ShowInvalidPasswordFlag     bool
+	ShowNonMatchingPasswordFlag bool
+	ShowInvalidEmailFlag        bool
+	ShowTakenEmailFlag          bool
+	SubmitButtonDisabled        bool
+}
+
+func (obj *SignupInputFormParams) FormAppearsValid() bool {
+	allValid := (!obj.ShowInvalidPasswordFlag &&
+		!obj.ShowInvalidEmailFlag &&
+		!obj.ShowTakenEmailFlag &&
+		!obj.SubmitButtonDisabled &&
+		!obj.ShowNonMatchingPasswordFlag)
+	return allValid
+}
+
+templ SignupPage(params SignupInputFormParams) {
+	@components.Base() {
+		@components.HomepageTopNav(true)
+		<div class="w-screen h-screen bg-gradient-to-r from-slate-200 to-gray-200">
+			<div class="w-screen h-screen flex justify-center items-center">
+				<div class="w-full h-fit sm:max-w-xs md:max-w-sm lg:max-w-sm">
+					@SignupInputForm(params)
+					<p class="text-center text-slate-300 text-s">
+						&copy;2024 "Company name here...". All rights reserved.
+					</p>
+				</div>
+			</div>
+		</div>
+	}
+}
+
+templ SignupInputForm(params SignupInputFormParams) {
+	<form
+		class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+		id="signup-input-form"
+		hx-post="/signup/submit"
+		hx-swap="outerHTML"
+		hx-target="this"
+	>
+		@SignupInputFormContent(params)
+	</form>
+}
+
+templ SignupInputFormContent(params SignupInputFormParams) {
+	<div class="w-full max-w-xs">
+		<div class="mb-4">
+			<label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+				Email
+			</label>
+			<input
+				class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+				id="email"
+				type="email"
+				placeholder="email"
+				value={ params.Email }
+				name="email"
+				hx-trigger="keyup delay:500ms"
+				hx-post="/signup/validate-email"
+				hx-swap="outerHTML"
+				hx-target="#email-errors"
+				hx-sync="closest form:abort"
+			/>
+			@EmailErrors(params)
+		</div>
+		<div class="mb-4">
+			<label class="block text-gray-700 text-sm font-bold mb-2" for="password1">
+				Password
+			</label>
+			<input
+				class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+				id="password1"
+				type="password"
+				placeholder="****"
+				name="password1"
+				value={ params.Password1 }
+				hx-trigger="keyup delay:500ms"
+				hx-post="/signup/validate-passwords"
+				hx-swap="outerHTML"
+				hx-target="#password-errors"
+				hx-sync="closest form:abort"
+			/>
+			<label class="mt-4 block text-gray-700 text-sm font-bold mb-2" for="password2">
+				Retype Password
+			</label>
+			<input
+				class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+				id="password2"
+				type="password"
+				placeholder="****"
+				name="password2"
+				value={ params.Password2 }
+				hx-trigger="keyup delay:500ms"
+				hx-post="/signup/validate-passwords"
+				hx-swap="outerHTML"
+				hx-target="#password-errors"
+				hx-sync="closest form:abort"
+			/>
+			@PasswordErrors(params)
+			<div class="mt-6 flex items-center justify-between">
+				@SignupPageButton(params, "")
+				<a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/login">
+					Already have an account
+				</a>
+			</div>
+		</div>
+	</div>
+}
+
+templ SignupPageButton(params SignupInputFormParams, hxSwapOob string) {
+	<div id="signup-page-button" hx-swap-oob={ hxSwapOob }>
+		@components.Button("Create Account", params.SubmitButtonDisabled)
+	</div>
+}
+
+templ EmailErrors(params SignupInputFormParams) {
+	<div id="email-errors">
+		if (params.ShowInvalidEmailFlag) {
+			<p class="text-red-500 text-xs italic">Email is not valid</p>
+		}
+		if (params.ShowTakenEmailFlag) {
+			<p class="text-red-500 text-xs italic">Email has already been taken</p>
+		}
+	</div>
+}
+
+templ PasswordErrors(params SignupInputFormParams) {
+	<div id="password-errors">
+		if (params.ShowInvalidPasswordFlag) {
+			<p class="text-red-500 text-sm italic">Please choose a password between 8 and 25 characters</p>
+		}
+		if (params.ShowNonMatchingPasswordFlag) {
+			<p class="text-red-500 text-sm italic">Your passwords do not match</p>
+		}
+	</div>
+}
+
+templ SignupSuccess() {
+	<div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-2">
+		<h2 class="text-grey-700 text-3xl">Success</h2>
+		<p class="mt-4 mb-6 text-grey-700 text-base">
+			Thanks for setting up an account.
+			You can now continue to the login page and start using the application.
+		</p>
+		<a
+			class="bg-orange-600 hover:bg-orange-700 text-white 
+      font-bold py-2 px-4 rounded 
+      focus:outline-none focus:shadow-outline"
+			href="/login"
+		>
+			Login
+		</a>
+	</div>
+}

@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS users(
+   id serial PRIMARY KEY,
+   password VARCHAR (250) NOT NULL,
+   email VARCHAR (300) UNIQUE NOT NULL,
+   enabled BOOLEAN NOT NULL
+);
