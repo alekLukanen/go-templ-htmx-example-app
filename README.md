@@ -8,6 +8,7 @@ You will need to install the sqlc, templ and tailwindcss command line tools to u
 * Templ docs: https://templ.guide/
 * Tailwind CSS docs: https://tailwindcss.com/docs/installation
 * HTMX docs: https://htmx.org/attributes/hx-trigger/
+* Tailwind UI examples: https://v1.tailwindcss.com/components/forms
 
 ### Makefile Shortcuts
 
