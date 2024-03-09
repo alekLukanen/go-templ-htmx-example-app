@@ -1,6 +1,10 @@
 # Go/Templ/HTMX Example App
 
 You will need to install the sqlc, templ and tailwindcss command line tools to use this repository.
+The project defines a simple template, with a single user db table, basic homepage, login and signup pages, 
+and a basic app page only accessible after the user has logged in. Auth is handled by using a 
+cookie containing the users JWT token. Auth refreshing is also handled when the user is on the app page.
+
 
 ### Helpful Links
 
@@ -9,6 +13,7 @@ You will need to install the sqlc, templ and tailwindcss command line tools to u
 * Tailwind CSS docs: https://tailwindcss.com/docs/installation
 * HTMX docs: https://htmx.org/attributes/hx-trigger/
 * Tailwind UI examples: https://v1.tailwindcss.com/components/forms
+* Echo docs: https://echo.labstack.com/docs
 
 ### Makefile Shortcuts
 
