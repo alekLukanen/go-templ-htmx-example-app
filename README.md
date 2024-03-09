@@ -95,7 +95,7 @@ npx tailwindcss -c ./core/ui/tailwind.config.js -i ./core/ui/main.css -o ./core/
 
 In the `core-service` directory run this command to start the server
 ```
-go run cmd/api/main.go
+go run cmd/ui/main.go
 ```
 
 
