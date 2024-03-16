@@ -34,7 +34,7 @@ psql -U postgres -h localhost
 
 In the postgres terminal enter
 ```
-CREATE database db_local;
+CREATE DATABASE db_local;
 ```
 
 Connect to the database
