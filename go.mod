@@ -6,7 +6,7 @@ require (
 	github.com/a-h/templ v0.2.598
 	github.com/golang-jwt/jwt/v5 v5.2.0
 	github.com/golang-migrate/migrate/v4 v4.17.0
-	github.com/jackc/pgx/v5 v5.5.3
+	github.com/jackc/pgx/v5 v5.5.4
 	github.com/labstack/echo-jwt/v4 v4.2.0
 	github.com/labstack/echo/v4 v4.11.4
 	github.com/spf13/viper v1.18.2
