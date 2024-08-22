@@ -74,7 +74,7 @@ You will be prompted to enter a migration number to force to in the database.
 
 ### Build Queries
 
-In the `core-service/core` directory run this command to generate the queries
+In the base directory run this command to generate the queries
 ```
 sqlc generate
 ```
@@ -84,21 +84,21 @@ This is only required after updating SQL queries.
 
 ### Build Templ Files
 
-In the `core-service/core` directory run this command to build the templ files
+In the base directory run this command to build the templ files
 ```
-templ generate ./core/ui/
+templ generate ./ui/
 ```
 
 ### Build Tailwind CSS
 
-In the `core-service/core` directory run this command
+In the base directory run this command
 ```
-npx tailwindcss -c ./core/ui/tailwind.config.js -i ./core/ui/main.css -o ./core/ui/static/main.css --minify
+npx tailwindcss -c ./ui/tailwind.config.js -i ./ui/main.css -o ./ui/static/main.css --minify
 ```
 
 ### Run the Server
 
-In the `core-service` directory run this command to start the server
+In the base directory run this command to start the server
 ```
 go run cmd/ui/main.go
 ```

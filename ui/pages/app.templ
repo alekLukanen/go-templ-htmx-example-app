@@ -1,0 +1,19 @@
+package pages
+
+import "github.com/alekLukanen/go-templ-htmx-example-app/ui/components"
+
+type AppParams struct {
+	UserEmail string
+	components.AuthRefreshParams
+}
+
+templ App(params AppParams) {
+	@components.Base() {
+		<div class="mt-8 px-8">
+			<h3>Login Info</h3>
+			<p>User email: { params.UserEmail }</p>
+			<h1>Add app contents here...</h1>
+		</div>
+		@components.AuthRefresh(params.AuthRefreshParams)
+	}
+}
