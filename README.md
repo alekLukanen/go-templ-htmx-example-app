@@ -15,11 +15,20 @@ cookie containing the users JWT token. Auth refreshing is also handled when the 
 * Tailwind UI examples: https://v1.tailwindcss.com/components/forms
 * Echo docs: https://echo.labstack.com/docs
 
+### Install Dependencies
+
+You need to install SQLC, Templ, and Tailwindcss before continuing. You also need to run
+the following Go command to download dependencies:
+
+```
+go mod download
+```
+
 ### Makefile Shortcuts
 
-You use the makefile in this repository to generate code and run the api
+You use the makefile in this repository to generate code and run the ui
 ```
-make run_api
+make run_ui
 ```
 First though, you need to start the postgres docker container and create a database in it.
 And then run the migrations. Those instructions are below.
@@ -31,6 +40,7 @@ Login to the postgres database running in your local docker container
 ```
 psql -U postgres -h localhost
 ```
+The default password is `password`.
 
 In the postgres terminal enter
 ```
@@ -91,9 +101,11 @@ templ generate ./ui/
 
 ### Build Tailwind CSS
 
+You must have at least node v18 to run tailwindcss now.
+
 In the base directory run this command
 ```
-npx tailwindcss -c ./ui/tailwind.config.js -i ./ui/main.css -o ./ui/static/main.css --minify
+npx tailwindcss -c ./ui/tailwind.config.js -i ./ui/main.css -o ./ui/static/main.css
 ```
 
 ### Run the Server
@@ -102,5 +114,7 @@ In the base directory run this command to start the server
 ```
 go run cmd/ui/main.go
 ```
+
+
 
 

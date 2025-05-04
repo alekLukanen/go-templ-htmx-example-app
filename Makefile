@@ -7,7 +7,7 @@ codegen:
 	@echo "${GREEN}Generating SQLC code...${NC}"
 	sqlc generate -f ./sqlc.yaml
 	@echo "${GREEN}Generating Tailwind CSS code...${NC}"
-	npx tailwindcss -c ./ui/tailwind.config.js -i ./ui/main.css -o ./ui/static/main.css --minify
+	npx tailwindcss -c ./ui/tailwind.config.js -i ./ui/main.css -o ./ui/static/main.css
 
 migrate_up:
 	@echo "${GREEN}Migrating up...${NC}"
